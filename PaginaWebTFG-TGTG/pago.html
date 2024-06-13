@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plataforma de Pago</title>
+<link rel="stylesheet" href="cssPago.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="#">Sobre Desperdicio de Productos</a></li>
+            </ul>
+            <img class="logoTGTG" src="imagenes/logo.png">
+            <div class="descarga-empresa">
+                <a href="#" class="button">Descarga la App</a>
+                <a href="#" class="button">Registra tu Empresa</a>
+                <a href="#" class="idioma">🌐</a>
+            </div>
+        </nav>
+    </header>
+    <h2>Plataforma de Pago</h2>
+    <form id="formPago" action="#">
+        <label for="nombre">Nombre en la tarjeta</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre en la tarjeta" required>
+
+        <label for="num-tarjeta">Número de Tarjeta</label>
+        <input type="text" id="num-tarjeta" name="num-tarjeta" placeholder="Número de tarjeta" required>
+
+        <label for="fecha-exp">Fecha de Expiración</label>
+        <input type="text" id="fecha-exp" name="fecha-exp" placeholder="MM/AA" required>
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+
+        <div id="datafono" onclick="verificarCamposCompletos()">
+            <div class="left-side">
+                <div class="card">
+                    <div class="card-line"></div>
+                    <div class="buttons"></div>
+                </div>
+                <div class="post">
+                    <div class="post-line"></div>
+                    <div class="screen">
+                        <div class="dollar">$</div>
+                    </div>
+                    <div class="numbers"></div>
+                    <div class="numbers-line2"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        const formPago = document.getElementById('formPago');
+        const datafono = document.getElementById('datafono');
+        
+        function verificarCamposCompletos() {
+            const nombre = document.getElementById('nombre').value;
+            const numTarjeta = document.getElementById('num-tarjeta').value;
+            const fechaExp = document.getElementById('fecha-exp').value;
+            const cvv = document.getElementById('cvv').value;
+            
+            if (nombre !== '' && numTarjeta.length === 16 && fechaExp.match(/^\d{2}\/\d{2}$/) && cvv.match(/^\d{3}$/)){
+            alert("Compra realizada con exito")
+            window.close()
+            window.open("indexVideojuegos.html")
+            }
+            else {
+            alert("No ha relleneado correctamente los datos")
+        }
+        }
+        
+        
+
+    </script>
+</body>
+</html>

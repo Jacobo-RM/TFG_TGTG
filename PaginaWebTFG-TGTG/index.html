@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylecss.css">
+</head>
+<body>
+    <main>
+        <section class="no-parallax">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="/indexVideojuegos.html" class="pagina">Videojuegos</a></li> 
+                        <li><a href="/indexTecnologia.html" class="pagina">Tecnologia</a></li>
+                        <li><a href="/indexTecnologia.html" class="pagina">Comida</a></li> 
+                        <li><a href="/indexTecnologia.html" class="pagina">Ropa</a></li> 
+                        <li><a href="/indexTecnologia.html" class="pagina">Jueguetes</a></li> 
+                    </ul>
+                    <img class="logoTGTG" src="imagenes/logo.png" class=".pagina">
+                    <div class="descarga-empresa">
+                        <a href="#" class="button">Descarga la App</a>
+                        <a href="#" class="button">Registra tu Empresa</a>
+                        <a href="#" class="idioma">🌐</a>
+                    </div>
+                </nav>
+            </header>
+            <div class="video-container">
+                <video src="/imagenes/videoFondo.mp4" autoplay muted loop></video>
+            </div>
+            <div class="tgtg_intro">
+                <h1>Marketplace de Packs Sorpresa y Excendentes</h1>
+                <h2>Rentabiliza tu Excedente de Productos</h2>
+                <p>Nuestra app conecta tu establecimiento con usuarios con muchas ganas de comprar el excedente de productos de tu establecimiento.</p>
+                <a href="#" class="registrar-button">Registra tu Empresa</a>
+            </div>
+        </section>
+        <section class="parallax bg">
+            <h1>¡Bienvenidos a nuestra página de Too Good To Go! Aquí encontrarás una solución sostenible y emocionante para reducir el desperdicio en alimentos, ropa, juguetes, videojuegos, electrónica y más. Descubre ofertas increíbles en productos de tus tiendas favoritas que, de otro modo, se desperdiciarían. Únete a nuestra comunidad y sé parte del cambio, disfrutando de artículos fabulosos a precios reducidos. ¡Juntos podemos hacer una gran diferencia para el planeta y tu bolsillo!</h1>
+        </section>
+        <section class="infoTGTG">
+            <div id="beneficios-consumidores">
+                <h3>Beneficios para los Consumidores</h3>
+                <br>
+                <p>Los consumidores en TGTG acceden a una amplia gama de productos de alta calidad a precios reducidos, contribuyendo a la reducción del desperdicio al rescatar productos descartados. 
+                    Al comprar en TGTG, ahorran dinero y participan en una iniciativa sostenible que beneficia a la comunidad y al medio ambiente.</p>
+            </div>
+            <div id="beneficios-negocios">
+                <h3>Beneficios para los Negocios</h3>
+                <br>
+                <p>Los negocios en TGTG reducen su exceso de inventario, vendiendo productos que podrían ser desperdiciados, recuperando parte de su inversión. Unirse a TGTG aumenta su visibilidad y alcance, llegando a nuevos 
+                    clientes interesados en precios reducidos. Esto genera ingresos adicionales y atrae clientes regulares. Participar en TGTG mejora su reputación al demostrar compromiso con la reducción del desperdicio y 
+                    la responsabilidad ambiental.</p>
+            </div>
+            <div id="compromiso-ambiental">
+                <h3>Compromiso Ambiental</h3>
+                <br>
+                <p>En TGTG, estamos comprometidos con la protección del medio ambiente. Nuestra plataforma no solo reduce el
+                    desperdicio de alimentos y productos, sino que
+                    también promueve prácticas comerciales sostenibles. Trabajamos en colaboración con nuestros socios para
+                    minimizar la huella ambiental, adoptar embalajes
+                    ecoamigables y apoyar proyectos de conservación ambiental en todo el mundo.</p>
+            </div>
+        </section>
+        <section class="contenedorImagenes">
+            <div class="imagen-container">
+                <h4>Alimentos</h4>
+                <img src="imagenes/fotosTGTGcomida.jpg" alt="TGTGComida" onclick="irAPagina('alimentacionTGTG.html')" />
+            </div>
+            <div class="imagen-container">
+                <h4>Ropa</h4>
+                <img src="imagenes/fotosTGTGropa.jpg" alt="TGTGRopa" onclick="irAPagina('ropaTGTG.html')" />
+            </div>
+            <div class="imagen-container">
+                <h4>Tecnología</h4>
+                <img src="imagenes/fotosTGTGtecnologia.jpg" alt="TGTGTecnologia" onclick="irAPagina('indexTecnologia.html')" />
+            </div>
+            <div class="imagen-container">
+                <h4>Videojuegos</h4>
+                <img src="imagenes/fotosTGTGvideojuegos.jpg" alt="TGTGVideojuegos" onclick="irAPagina('indexVideojuegos.html')" />
+            </div>
+            <div class="imagen-container">
+                <h4>Juguetes</h4>
+                <img src="imagenes/fotosTGTGjuguetes.jpg" alt="TGTGJuguetes" onclick="irAPagina('juguetesTGTG.html')" />
+            </div>
+        </section>
+        
+
+    <div id="cookies" style="display: none;">
+        <div id="popup-contenedor">
+          <img class="logoTGTG-cookies" src="imagenes/logo.png">
+            <p>AVISO SOBRE COOKIES</p>
+            <p>Nosotros y terceros seleccionados utilizamos cookies o tecnologías similares con fines técnicos y, con su consentimiento, para otras finalidades según se especifica en la política de cookies.
+              Utilice el botón “Aceptar” para dar su consentimiento. Utilice el botón “Rechazar” o cierre esta nota informativa para continuar sin aceptar.</p>
+            <button id="deny-cookies">Denegar</button>
+            <button id="accept-cookies">Aceptar Cookies</button>
+        </div>
+      </div>
+  
+        <script>
+            function irAPagina(url) {
+                window.location.href = url;
+            }
+            setTimeout(function() {
+                document.getElementById('cookies').style.display = 'block';
+            }, 3000); 
+
+            document.getElementById('deny-cookies').addEventListener('click', function() {
+                document.getElementById('cookies').style.display = 'none';
+            });
+
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                document.getElementById('cookies').style.display = 'none';
+            });
+        </script>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footerSeccion">
+                <h4>Sobre Nosotros</h4>
+                <ul>
+                    <li><a href="#">Nuestra Misión</a></li>
+                    <li><a href="#">Equipo</a></li>
+                    <li><a href="#">Carreras</a></li>
+                </ul>
+            </div>
+            <div class="footerSeccion">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Soporte Técnico</a></li>
+                </ul>
+            </div>
+            <div class="footerSeccion">
+                <h4>Síguenos</h4>
+                <ul class="social-media">
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 48 48">
+                        <path fill="#03A9F4" d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"></path>
+                        </svg></a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 50 50">
+                        <path d="M 16 3 C 8.8324839 3 3 8.8324839 3 16 L 3 34 C 3 41.167516 8.8324839 47 16 47 L 34 47 C 41.167516 47 47 41.167516 47 34 L 47 16 C 47 8.8324839 41.167516 3 34 3 L 16 3 z M 16 5 L 34 5 C 40.086484 5 45 9.9135161 45 16 L 45 34 C 45 40.086484 40.086484 45 34 45 L 16 45 C 9.9135161 45 5 40.086484 5 34 L 5 16 C 5 9.9135161 9.9135161 5 16 5 z M 37 11 A 2 2 0 0 0 35 13 A 2 2 0 0 0 37 15 A 2 2 0 0 0 39 13 A 2 2 0 0 0 37 11 z M 25 14 C 18.936712 14 14 18.936712 14 25 C 14 31.063288 18.936712 36 25 36 C 31.063288 36 36 31.063288 36 25 C 36 18.936712 31.063288 14 25 14 z M 25 16 C 29.982407 16 34 20.017593 34 25 C 34 29.982407 29.982407 34 25 34 C 20.017593 34 16 29.982407 16 25 C 16 20.017593 20.017593 16 25 16 z"></path>
+                        </svg></a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 48 48">
+                        <path fill="#0288D1" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"></path><path fill="#FFF" d="M12 19H17V36H12zM14.485 17h-.028C12.965 17 12 15.888 12 14.499 12 13.08 12.995 12 14.514 12c1.521 0 2.458 1.08 2.486 2.499C17 15.887 16.035 17 14.485 17zM36 36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698-1.501 0-2.313 1.012-2.707 1.99C24.957 25.543 25 26.511 25 27v9h-5V19h5v2.616C25.721 20.5 26.85 19 29.738 19c3.578 0 6.261 2.25 6.261 7.274L36 36 36 36z"></path>
+                        </svg></a></li>
+                </ul>
+            </div>
+            <div class="footerSeccion">
+                <h4>Contacto</h4>
+                <p>Teléfono: 942 51 56 78</p>
+                <p>Email: tfg.jacobo@tgtg.com</p>
+                <p>Dirección: P.º del Gral. Dávila, 200, 39006 Santander, Cantabria</p>
+            </div>
+        </div>
+        <div class="footerBottom">
+            <p>&copy; 2024 Too Good To Go. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+

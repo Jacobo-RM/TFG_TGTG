@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #000000;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        select {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: calc(50% - 12px);
+            display: inline-block;
+        }
+        .opcionesYejecutar {
+            text-align: center;
+        }
+        #resultadoContainer {
+            margin-top: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        ul li strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PANEL DE ADMINISTRACIÓN</h1>
+        <div class="opcionesYejecutar">
+            <select id="tablaSelect" onchange="actualizarOpciones()">
+                <option value="clientes">Clientes</option>
+                <option value="empresa">Empresa</option>
+                <option value="empleados">Empleados</option>
+                <option value="productos">Productos</option>
+            </select>
+            <select id="opcionesSelect"></select>
+            <button onclick="ejecutarOperacion()">Ejecutar</button>
+            <button onclick="limpiarPantalla()">Limpiar Pantalla</button>
+        </div>
+        <div id="resultadoContainer"></div>
+    </div>
+
+    <script>
+        const opcionesPorTabla = {
+            clientes: [
+                "Obtener todos los clientes",
+                "Obtener cliente por el NIF"
+            ],
+            empleados:[
+                "Obtener todos los empleados actuales",
+                "Añadir empleado",
+                "Despedir empleado",
+                "Actualizar empleado"
+            ],
+            empresa: ["Obtener información de la empresa"],
+            productos: [
+                "Obtener todos los productos",
+                "Devuelve los productos por categoría",
+                "Devuelve los productos por rango precio",
+                "Verificar stock de producto",
+                "Añadir descuento",
+                "Añadir producto"
+            ],
+        };
+
+        function actualizarOpciones() {
+            const tablaSelect = document.getElementById("tablaSelect");
+            const opcionesSelect = document.getElementById("opcionesSelect");
+            const tablaSeleccionada = tablaSelect.value;
+            opcionesSelect.innerHTML = "";
+
+            opcionesPorTabla[tablaSeleccionada].forEach(opcion => {
+                const optionElement = document.createElement("option");
+                optionElement.value = opcion;
+                optionElement.textContent = opcion;
+                opcionesSelect.appendChild(optionElement);
+            });
+        }
+
+        function ejecutarOperacion() {
+            const tablaSelect = document.getElementById("tablaSelect");
+            const tablaSeleccionada = tablaSelect.value;
+            const opcionesSelect = document.getElementById("opcionesSelect");
+            const opcionSeleccionada = opcionesSelect.value;
+
+            switch (opcionSeleccionada) {
+                case "Obtener todos los clientes":
+                    obtenerTodosLosClientes();
+                    break;
+                case "Obtener cliente por el NIF":
+                    obtenerClientesNif();
+                    break;
+                case "Obtener información de la empresa":
+                    obtenerInformacionDeLaEmpresa();
+                    break;
+                case "Devuelve los productos por categoría":
+                    obtenerProductosPorCategoria();
+                    break;
+                case "Devuelve los productos por rango precio":
+                    obtenerProductosPorRangoPrecio();
+                    break;
+                case "Obtener todos los empleados actuales":
+                    obtenerTodosLosEmpleados();
+                    break;
+                case "Obtener todos los productos":
+                    obtenerTodosLosProductos();
+                    break;
+                case "Añadir empleado":
+                    agregarEmpleado();
+                    break;
+                case "Añadir producto":
+                    agregarProducto();
+                    break
+                case "Añadir descuento":
+                    addDescuento();
+                    break;
+                case "Despedir empleado":
+                    deleteUnEmpleado();
+                    break;
+                case "Verificar stock de producto":
+                    verificarStock();
+                    break;
+                case "Actualizar empleado":
+                    actualizarEmpleado();
+                    break;
+                default:
+                    console.log("Operación no válida");
+            }
+        }
+
+        function obtenerTodosLosClientes() {
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/clientes`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Todos los clientes</h3>
+                    <ul>
+                        ${data.map(cliente => `
+                            <li>
+                                <strong>NIF:</strong> ${cliente.nif}<br>
+                                <strong>Nombre:</strong> ${cliente.nombre}<br>
+                                <strong>Dirección:</strong> ${cliente.direccion}<br>
+                                <strong>Teléfono:</strong> ${cliente.telefono}<br>
+                                <strong>Correo:</strong> ${cliente.correo}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            })
+        }
+
+        function obtenerTodosLosEmpleados() {
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/empleadosActuales`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Todos los Empleados</h3>
+                    <ul>
+                        ${data.map(empleados => `
+                            <li>
+                                <strong>NAF:</strong> ${empleados.naf}<br>
+                                <strong>Nombre:</strong> ${empleados.nombre}<br>
+                                <strong>Puesto Laboral:</strong> ${empleados.puestoLaboral}<br>
+                                <strong>Horario Entrada:</strong> ${empleados.horarioEntrada}<br>
+                                <strong>Horario Salida:</strong> ${empleados.horarioSalida}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            })
+        }
+
+        function obtenerTodosLosProductos() {
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/productos`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Todos los Productos</h3>
+                    <ul>
+                        ${data.map(producto => `
+                            <li>
+                                <strong>Código de Producto:</strong> ${producto.codProducto}<br>
+                                <strong>Nombre:</strong> ${producto.nombre}<br>
+                                <strong>Descripción:</strong> ${producto.descripcion}<br>
+                                <strong>Precio Actual:</strong> ${producto.precioActual}<br>
+                                <strong>Precio Original:</strong> ${producto.precioOriginal}<br>
+                                <strong>Número de Serie:</strong> ${producto.numeroSerie}<br>
+                                <strong>Desperfecto:</strong> ${producto.desperfecto}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            });
+        }
+
+
+        function obtenerClientesNif() {
+            const nif = prompt("Ingrese el NIF del cliente:");
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/clientes/${nif}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Clientes</h3>
+                    <ul>
+                        ${data.map(cliente => `
+                            <li>
+                                <strong>NIF:</strong> ${cliente.nif}<br>
+                                <strong>Nombre:</strong> ${cliente.nombre}<br>
+                                <strong>Dirección:</strong> ${cliente.direccion}<br>
+                                <strong>Teléfono:</strong> ${cliente.telefono}<br>
+                                <strong>Correo:</strong> ${cliente.correo}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            })
+        }
+
+        function obtenerInformacionDeLaEmpresa() {
+            const codEmpresaPrompt = prompt("Ingrese el código de la empresa:");
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/empresa/${codEmpresaPrompt}`)
+            .then(response => response.json())
+            .then(empresa => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Información de la Empresa</h3>
+                    <p><strong>Código de la Empresa:</strong> ${empresa.codEmpresa}</p>
+                    <p><strong>CIF:</strong> ${empresa.cif}</p>
+                    <p><strong>Cuenta SS:</strong> ${empresa.cuentaSS}</p>
+                    <p><strong>Domicilio:</strong> ${empresa.domicilio}</p>
+                    <p><strong>Teléfono:</strong> ${empresa.telefono}</p>
+                    <p><strong>Correo:</strong> ${empresa.correo}</p>
+                    <p><strong>Url Web:</strong> ${empresa.urlWeb}</p>
+                `;
+            })
+        }
+
+        function obtenerProductosPorCategoria() {
+            const categoria = prompt("Ingrese la categoría de productos:");
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/productosByCategoria/${categoria}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Productos por Categoría</h3>
+                    <ul>
+                        ${data.map(producto => `
+                            <li>
+                                <strong>Código de Producto:</strong> ${producto.codProducto}<br>
+                                <strong>Nombre:</strong> ${producto.nombre}<br>
+                                <strong>Descripción:</strong> ${producto.descripcion}<br>
+                                <strong>Precio Actual:</strong> ${producto.precioActual}<br>
+                                <strong>Precio Original:</strong> ${producto.precioOriginal}<br>
+                                <strong>Número de Serie:</strong> ${producto.numeroSerie}<br>
+                                <strong>Desperfecto:</strong> ${producto.desperfecto}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            })
+        }
+
+        function obtenerProductosPorRangoPrecio() {
+            const precioMin = prompt("Ingrese el precio mínimo:");
+            const precioMax = prompt("Ingrese el precio máximo:");
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/productos/rangoDePrecio/${precioMin}/${precioMax}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Productos por Rango de Precio</h3>
+                    <ul>
+                        ${data.map(producto => `
+                            <li>
+                                <strong>Código de Producto:</strong> ${producto.codProducto}<br>
+                                <strong>Nombre:</strong> ${producto.nombre}<br>
+                                <strong>Descripción:</strong> ${producto.descripcion}<br>
+                                <strong>Precio Actual:</strong> ${producto.precioActual}<br>
+                                <strong>Precio Original:</strong> ${producto.precioOriginal}<br>
+                                <strong>Número de Serie:</strong> ${producto.numeroSerie}<br>
+                                <strong>Desperfecto:</strong> ${producto.desperfecto}<br>
+                                <br>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            })
+        }
+
+        function agregarProducto() {
+            const codProducto = prompt("Ingrese el código del producto:");
+            const nombre = prompt("Ingrese el nombre del producto:");
+            const descripcion = prompt("Ingrese la descripción del producto:");
+            const precioActual = prompt("Ingrese el precio actual del producto:");
+            const precioOriginal = prompt("Ingrese el precio original del producto:");
+            const numeroSerie = prompt("Ingrese el número de serie del producto:");
+            const categoria = prompt("Ingrese la categoría del producto:");
+            const desperfecto = prompt("Ingrese los desperfectos del producto:");
+
+            const producto = {
+                codProducto: codProducto,
+                nombre: nombre,
+                descripcion: descripcion,
+                precioActual: parseFloat(precioActual),
+                precioOriginal: parseFloat(precioOriginal),
+                numeroSerie: numeroSerie,
+                categoria: categoria,
+                desperfecto: desperfecto
+            };
+
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/addProducto`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(producto),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Producto añadido correctamente.</p>";
+                } else {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Error al añadir el producto.</p>";
+                }
+            })
+        }
+
+        function agregarEmpleado() {
+            const naf = prompt("Ingrese el NAF del empleado:");
+            const nombre = prompt("Ingrese el nombre del empleado:");
+            const puestoLaboral = prompt("Ingrese el puesto laboral del empleado:");
+            const horaEntrada = prompt("Ingrese la hora de entrada del empleado:");
+            const horaSalida = prompt("Ingrese la hora de salida del empleado:");
+            const codEmpresa = prompt("Ingrese el código de la empresa del empleado:");
+
+            const empleado = {
+                naf: naf,
+                nombre: nombre,
+                puestoLaboral: puestoLaboral,
+                horaEntrada: horaEntrada,
+                horaSalida: horaSalida,
+                codEmpresa: codEmpresa
+            };
+
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/contratarEmpleado/${naf}/${nombre}/${puestoLaboral}/${horaEntrada}/${horaSalida}/${codEmpresa}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(empleado),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Empleado añadido:', data);
+                document.getElementById("resultadoContainer").innerHTML = "<p>Empleado añadido correctamente.</p>";
+            })
+        }
+
+        function addDescuento() {
+            const codProducto = prompt("Ingrese el código del producto:");
+            const porcentaje = prompt("Ingrese el porcentaje de descuento (ejemplo: 20 para 20%):");
+
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/productos/actualizarPrecio/${codProducto}/${porcentaje}`, {
+                method: 'PUT',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Descuento añadido correctamente.</p>";
+                } else {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Error al añadir el descuento.</p>";
+                }
+            });
+        }
+
+        function actualizarEmpleado() {
+            const naf = prompt("Ingrese el NAF del empleado:");
+            const nombre = prompt("Ingrese el nombre del empleado:");
+            const puestoLaboral = prompt("Ingrese el puesto laboral del empleado:");
+            const horaEntrada = prompt("Ingrese la hora de entrada del empleado (en formato HHMM, ej. 0900):");
+            const horaSalida = prompt("Ingrese la hora de salida del empleado (en formato HHMM, ej. 1700):");
+            const codEmpresa = prompt("Ingrese el código de la empresa del empleado:");
+
+            const params = new URLSearchParams({
+                nombre: nombre,
+                puestoLaboral: puestoLaboral,
+                horaEntrada: horaEntrada,
+                horaSalida: horaSalida,
+                codEmpresa: codEmpresa
+            });
+
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/actualizarEmpleados/${naf}?${params.toString()}`, {
+                method: 'PUT',
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadoContainer = document.getElementById("resultadoContainer");
+                if (data) {
+                    resultadoContainer.innerHTML = "<p>Empleado actualizado correctamente.</p>";
+                } else {
+                    resultadoContainer.innerHTML = "<p>Error al actualizar el empleado.</p>";
+                }
+            });
+        }
+
+
+        function deleteUnEmpleado() {
+            const naf = prompt("Ingrese el NAF del empleado que desea eliminar:");
+            
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/despedirTrabajador/${naf}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Empleado eliminado correctamente.</p>";
+                } else {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Error al eliminar el empleado.</p>";
+                }
+            });
+        }
+
+        function agregarProducto() {
+            const codProducto = prompt("Ingrese el código del producto:");
+            const nombre = prompt("Ingrese el nombre del producto:");
+            const descripcion = prompt("Ingrese la descripción del producto:");
+            const precioActual = prompt("Ingrese el precio actual del producto:");
+            const precioOriginal = prompt("Ingrese el precio original del producto:");
+            const numeroSerie = prompt("Ingrese el número de serie del producto:");
+            const categoria = prompt("Ingrese la categoría del producto:");
+            const desperfecto = prompt("Ingrese los desperfectos del producto:");
+
+            const producto = {
+                codProducto: codProducto,
+                nombre: nombre,
+                descripcion: descripcion,
+                precioActual: parseFloat(precioActual),
+                precioOriginal: parseFloat(precioOriginal),
+                numeroSerie: numeroSerie,
+                categoria: categoria,
+                desperfecto: desperfecto
+            };
+
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/addProducto`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(producto),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Producto añadido correctamente.</p>";
+                } else {
+                    document.getElementById("resultadoContainer").innerHTML = "<p>Error al añadir el producto.</p>";
+                }
+            })
+        }
+
+        function verificarStock() {
+            const codigoProducto = prompt ("Ingrese el código del producto:")
+            fetch(`http://localhost:8082/elCorteIngles/ToGoodToGo/producto/${codigoProducto}/stock`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('La solicitud no pudo ser completada');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const resultadoContainer = document.getElementById('resultadoContainer');
+                resultadoContainer.innerHTML = `
+                    <h3>Verificación de Stock</h3>
+                    <p>${data}</p>
+                `;
+            })
+        }
+
+        
+
+        function limpiarPantalla() {
+            document.getElementById('resultadoContainer').innerHTML = '';
+        }
+
+        document.addEventListener("DOMContentLoaded", actualizarOpciones);
+    </script>
+</body>
+</html>

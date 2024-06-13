@@ -1,0 +1,347 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    background-image: url("imagenes/fondopago.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+
+}
+
+header {
+    background-color: #025958;
+    padding: 10px 0;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logoTGTG {
+    width: 100px;
+}
+
+.descarga-empresa {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.button {
+    background-color: #ffffff;
+    color: #025958;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.idioma {
+    font-size: 24px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 15vh;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.expira-cvv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.expira-cvv .expira, .expira-cvv .cvv {
+    flex: 1;
+}
+
+
+
+
+
+
+/*BOTON DE UIVERSE https://uiverse.io/Pawelitto/rare-otter-49 */
+
+#datafono {
+background-color: #ffffff;
+margin: auto;
+margin-bottom: 2vh;
+display: flex;
+width: 150px;
+height: 100px;
+position: relative;
+border-radius: 6px;
+transition: 0.3s ease-in-out;
+}
+
+#datafono:hover {
+transform: scale(1.03);
+}
+
+#datafono:hover .left-side {
+width: 100%;
+}
+
+.left-side {
+background-color: #5de2a3;
+width: 130px;
+height: 120px;
+border-radius: 4px;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+transition: 0.3s;
+flex-shrink: 0;
+overflow: hidden;
+}
+
+.arrow {
+width: 20px;
+height: 20px;
+margin-right: 20px;
+}
+
+.new {
+font-size: 23px;
+font-family: "Lexend Deca", sans-serif;
+margin-left: 20px;
+}
+
+.card {
+width: 70px;
+height: 46px;
+background-color: #c7ffbc;
+border-radius: 6px;
+position: absolute;
+display: flex;
+z-index: 10;
+flex-direction: column;
+align-items: center;
+}
+
+.card-line {
+width: 65px;
+height: 13px;
+background-color: #80ea69;
+border-radius: 2px;
+margin-top: 7px;
+}
+
+@media only screen and (max-width: 480px) {
+.datafono {
+    transform: scale(0.7);
+}
+
+#datafono:hover {
+    transform: scale(0.74);
+}
+
+.new {
+    font-size: 18px;
+}
+}
+
+.buttons {
+width: 8px;
+height: 8px;
+background-color: #379e1f;
+box-shadow: 0 -10px 0 0 #26850e, 0 10px 0 0 #56be3e;
+border-radius: 50%;
+margin-top: 5px;
+transform: rotate(90deg);
+margin: 10px 0 0 -30px;
+}
+
+#datafono:hover .card {
+animation: slide-top 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+}
+
+#datafono:hover .post {
+animation: slide-post 1s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+}
+
+@keyframes slide-top {
+0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+50% {
+    -webkit-transform: translateY(-70px) rotate(90deg);
+    transform: translateY(-70px) rotate(90deg);
+}
+
+60% {
+    -webkit-transform: translateY(-70px) rotate(90deg);
+    transform: translateY(-70px) rotate(90deg);
+}
+
+100% {
+    -webkit-transform: translateY(-8px) rotate(90deg);
+    transform: translateY(-8px) rotate(90deg);
+}
+}
+
+.post {
+width: 63px;
+height: 75px;
+background-color: #dddde0;
+position: absolute;
+z-index: 11;
+bottom: 10px;
+top: 120px;
+border-radius: 6px;
+overflow: hidden;
+}
+
+.post-line {
+width: 47px;
+height: 9px;
+background-color: #545354;
+position: absolute;
+border-radius: 0px 0px 3px 3px;
+right: 8px;
+top: 8px;
+}
+
+.post-line:before {
+content: "";
+position: absolute;
+width: 47px;
+height: 9px;
+background-color: #757375;
+top: -8px;
+}
+
+.screen {
+width: 47px;
+height: 23px;
+background-color: #ffffff;
+position: absolute;
+top: 22px;
+right: 8px;
+border-radius: 3px;
+}
+
+.numbers {
+width: 12px;
+height: 12px;
+background-color: #838183;
+box-shadow: 0 -18px 0 0 #838183, 0 18px 0 0 #838183;
+border-radius: 2px;
+position: absolute;
+transform: rotate(90deg);
+left: 25px;
+top: 52px;
+}
+
+.numbers-line2 {
+width: 12px;
+height: 12px;
+background-color: #aaa9ab;
+box-shadow: 0 -18px 0 0 #aaa9ab, 0 18px 0 0 #aaa9ab;
+border-radius: 2px;
+position: absolute;
+transform: rotate(90deg);
+left: 25px;
+top: 68px;
+}
+
+@keyframes slide-post {
+50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+100% {
+    -webkit-transform: translateY(-70px);
+    transform: translateY(-70px);
+}
+}
+
+.dollar {
+position: absolute;
+font-size: 16px;
+font-family: "Lexend Deca", sans-serif;
+width: 100%;
+left: 0;
+top: 0;
+color: #4b953b;
+text-align: center;
+}
+
+#datafono:hover .dollar {
+animation: fade-in-fwd 0.3s 1s backwards;
+}
+
+@keyframes fade-in-fwd {
+0% {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+@media (max-width: 500px) {
+
+    header{
+        display: none;
+    }
+
+}
